@@ -62,11 +62,15 @@ export default function PopupHeader(props: PopupHeaderProps) {
         });
     };
 
-    const toggleSearch = () => {
+    const toggleSearch = (e: KeyboardEvent) => {
         if (props.page.type === 'folder') {
             setLastId(props.page.key);
         }
-        navigate('search', '');
+        if (e.key && e.key.length > 1) {
+            navigate('search', '');
+        } else {
+            navigate('search', e.key);
+        }
         document.removeEventListener('keydown', toggleSearch);
     };
 
